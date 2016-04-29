@@ -1,80 +1,196 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
-# kloud
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+# KLOUD
 
-## Questions Collection [/questions]
+This is the API for KLOUD
 
-### List All Questions [GET]
+# Group Schools
+
+## Schools collection [/schools]
+
++ Attributes
+    - id (number)
+    - name (string)
+    - country (string)
+    - city (string)
+    - address (string)
+
+### List all schools [GET]
+
+Returns a list of all the schools currently available for students
+
++ Response 200 (application/json)
+        
+        {
+            "data" : [
+                {"id":"1", "name":"Fazekas", "country":"HU", 
+                    "city":"Debrecen", "address":"hatcan 44-46" }
+                {"id":"2", "name":"TAG", "country":"HU", 
+                    "city": null, "address" : null }
+            ]
+            
+        }
+
+
+# Group Classes
+
+## Class [/classes/{classId}]
+
++ Attributes
+    - id (number)
+    - name: 11A (string)
+    - school (number)
+    - timeInterval (string) - time interval of the class in ISO 8601 format
+    - owner (number) - id of the user who created the class
+
++ Parameters
+    - classId: 1 (required, number) - ID of the class in form of an integer
+    
+
+### View class detail [GET]
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
+        + Attributes (Class)
+        
+### Create class [POST]
 
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
++ Request 
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+        
         }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
-    + Headers
+        {
+        
+        }
+        
+## Classes of school [/classes/ofschool/{schoolId}]
 
-            Location: /questions/2
+### List classes of school [GET]
 
-    + Body
++ Response 200 (application/json)
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
+        + Attributes (array[Class])
+        
+## Own class [/classes/own]
+
+### View own class [GET]
+
++ Response 200 (application/json)
+
+        + Attributes (Class)
+        
+### Set own class [POST]
+
++ Request 
+
+        {
+            "classId" : 1
+        }
+        
++ Response 200 (application/json)
+
+        {
+            
+        }
+        
+# Group Lessons
+        
+## Lessons of class [/lessons/of/{classId}]
+
+### List lessons of class [GET]
+
++ Response 200 (application/json)
+
+         (array[Lesson])
+    
+        
+## Lesson [/lessons/{lessonId}]
+
++ Attributes 
+    - id (number)
+    - name (string)
+    - class (number)
+    - teacher (string)
+
+### View lesson detail [GET]
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+
+### Create lesson [POST]
+
+The user has to be admin of the class he wants to add the lesson to
+
++ Request
+
+        {
+            "classId" : 1
+        }
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+
+### Update lesson [PATCH]
+
+Only available to admins of the class
+
++ Request  (application/json)
+
+        {
+        
+        }
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+        
+### Delete lesson [DELETE]
+
+Only available to admins of the class
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+
+## Own lessons collection [/lessons/own]
+
+### View Add[GET]
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+
+## Change own lessons [/lessons/own/{lessonId}]
+
+### Add lesson to own lessons [POST]
+
++ Response 200 (application/json)
+
+        {
+        
+        }
+        
+### Delete lesson from own lessons [DELETE]
+        
++ Response 200 (application/json)
+
+        {
+        
+        }
