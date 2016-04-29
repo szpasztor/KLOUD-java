@@ -1,13 +1,16 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import models.School;
 import play.db.Database;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
@@ -25,48 +28,32 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() throws SQLException {
+    public Result index()  {
+        return TODO;
+    }
 
-        Connection connection = db.getConnection();
+    public Result listAllSchools() {
+        ArrayNode list = Json.newArray();
+        try (Connection connection = db.getConnection()) {
+            final ResultSet resultSet = connection.prepareStatement("SELECT * FROM \"schools\"").executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String country = resultSet.getString("country");
+                String city = resultSet.getString("city");
+                String address = resultSet.getString("address");
 
-        connection.prepareStatement("INSERT INTO \"schools\" (name) VALUES (\'FAZEKAS\') ").execute();
+                School school = new School(id,name,country,city,address);
+                JsonNode schoolJson = Json.toJson(school);
 
-
-        String x = "something should be here\n";
-
-        final ResultSet resultSet = connection.prepareStatement("SELECT * FROM \"schools\"").executeQuery();
-        //final ResultSet resultSet = connection.prepareStatement("SELECT * FROM pg_catalog.pg_tables").executeQuery();
-
-        while (resultSet.next()) {
-            String name = resultSet.getString("name");
-            int id = resultSet.getInt("id");
-            x += id + " " + name + "\n";
-            System.out.println(x);
-        }
-
-        /*ResultSetMetaData metadata = resultSet.getMetaData();
-        int columnCount = metadata.getColumnCount();
-        for (int i = 1; i <= columnCount; i++) {
-            System.out.println(metadata.getColumnName(i) + ", ");
-        }
-
-        System.out.println();
-        ResultSet rs = resultSet;
-        while (rs.next()) {
-            String row = "";
-            for (int i = 1; i <= columnCount; i++) {
-                row += rs.getString(i) + ", ";
+                list.add(schoolJson);
             }
-            System.out.println();
+            return ok(list);
 
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return internalServerError("SQL exception");
         }
-        */
-
-        connection.close();
-
-
-        return ok(x);
     }
 
 }

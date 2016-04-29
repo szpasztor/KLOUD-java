@@ -4,3 +4,4 @@
 
 GET     /                           controllers.HomeController.index
 
+GET     /schools                    controllers.HomeController.listAllSchools
