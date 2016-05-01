@@ -11,5 +11,6 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   jdbc,
-  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
+  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
+  "com.google.code.gson" % "gson" % "2.6.2"
 )
