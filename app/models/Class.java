@@ -1,50 +1,46 @@
 package models;
 
 
+import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import play.data.format.Formats;
+import play.data.validation.Constraints;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "class")
 public class Class {
 
-    private int id;
+    @Id
+    public Integer id;
 
-    private String name;
-    private int schoolId;
-    private String timeStart; // YYY MM DD
-    private String timeEnd;
-    private int ownerId;
+    @Constraints.Required
+    public String name;
 
-    public Class(int id, String name, int schoolId, String timeStart, String timeEnd, int ownerId) {
-        this.id = id;
-        this.name = name;
-        this.schoolId = schoolId;
-        this.timeStart = timeStart;
-        this.timeEnd = timeEnd;
-        this.ownerId = ownerId;
-    }
+    @Constraints.Required
+    @ManyToOne
+    @JsonProperty("school_id")
+    public Integer schoolId;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Constraints.Required
+    @Formats.DateTime(pattern="yyyy-MM-dd")
+    @JsonProperty("time_start")
+    public String timeStart;
 
-    public String getTimeEnd() {
-        return timeEnd;
-    }
+    @Constraints.Required
+    @Formats.DateTime(pattern="yyyy-MM-dd")
+    @JsonProperty("time_end")
+    public String timeEnd;
 
-    public String getTimeStart() {
-        return timeStart;
-    }
+    @Constraints.Required
+    @ManyToOne
+    @JsonProperty("owner_id")
+    public Integer ownerId;
 
-    public int getOwnerId() {
-        return ownerId;
-    }
+    public static Model.Finder<Integer, Class> find = new Model.Finder<>(Class.class);
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSchoolId() {
-        return schoolId;
-    }
 }

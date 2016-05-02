@@ -1,39 +1,27 @@
 package models;
 
 
+import com.avaje.ebean.Model.Finder;
+import play.data.validation.Constraints;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "school")
 public class School {
 
-    private int id;
-    private String name;
-    private String country;
-    private String city;
-    private String address;
+    @Id
+    public Integer id;
+    @Constraints.Required
+    public String name;
+    public String country;
+    public String city;
+    public String address;
 
-    public School(int id, String name, String country, String city, String address) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-        this.city = city;
-        this.address = address;
-    }
+    public static Finder<Integer, School> find = new Finder<>(School.class);
 
-    public int getId() {
-        return id;
-    }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 }
