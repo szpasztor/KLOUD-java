@@ -17,7 +17,7 @@ public class HomeController extends Controller {
     @Inject
     Database db;
 
-    public static Result index() {
+    public Result index() {
         return redirect("http://kloudapp.api-docs.io/v1.0");
     }
 
