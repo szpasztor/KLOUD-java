@@ -17,6 +17,10 @@ public class HomeController extends Controller {
     @Inject
     Database db;
 
+    public static Result index() {
+        return redirect("http://kloudapp.api-docs.io/v1.0");
+    }
+
     public Result listAllSchools() {
         ArrayNode jsonArray = Json.newArray();
         School.find.all().forEach(x -> jsonArray.add(Json.toJson(x)));
