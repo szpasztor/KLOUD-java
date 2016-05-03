@@ -1,3 +1,5 @@
+package com.kloud;
+
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -15,11 +17,6 @@ public class ApplicationTest {
     public void simpleCheck() {
         int a = 1 + 1;
         assertEquals(2, a);
-    }
-
-    @Test
-    public void renderTemplate() {
-
     }
 
 

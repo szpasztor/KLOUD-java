@@ -1,9 +1,9 @@
-package controllers;
+package com.kloud.controllers;
 
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import models.Class;
-import models.School;
+import com.kloud.models.Class;
+import com.kloud.models.School;
 import play.db.Database;
 import play.libs.Json;
 import play.mvc.BodyParser;

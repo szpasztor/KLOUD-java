@@ -1,4 +1,4 @@
-package models;
+package com.kloud.models;
 
 
 import com.avaje.ebean.Model;
