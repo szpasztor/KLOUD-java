@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "class")
-public class Class {
+public class Class extends Model {
 
     @Id
     public Integer id;

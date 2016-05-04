@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Lesson {
+public class Lesson extends Model {
 
     @Id
     public Integer id;

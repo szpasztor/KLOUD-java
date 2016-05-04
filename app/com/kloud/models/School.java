@@ -1,6 +1,7 @@
 package com.kloud.models;
 
 
+import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.Finder;
 import play.data.validation.Constraints;
 
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "school")
-public class School {
+public class School extends Model {
 
     @Id
     public Integer id;
