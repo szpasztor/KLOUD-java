@@ -2,10 +2,14 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                 com.kloud.controllers.HomeController.index
+GET     /                       com.kloud.controllers.HomeController.index
 
-GET     /schools          com.kloud.controllers.HomeController.listAllSchools
+GET     /schools                com.kloud.controllers.HomeController.listAllSchools
 
-GET     /class/:id        com.kloud.controllers.HomeController.viewClassDetail(id: Int)
+GET     /class/:id              com.kloud.controllers.HomeController.viewClassDetail(id: Int)
 
-POST    /class            com.kloud.controllers.HomeController.createClass
+POST    /class                  com.kloud.controllers.HomeController.createClass
+
+GET     /classes/:school_id     com.kloud.controllers.HomeController.listClassesOfSchool(school_id: Int)
+
+GET     /lessons/:class_id       com.kloud.controllers.HomeController.listLessonsOfClass(class_id: Int)

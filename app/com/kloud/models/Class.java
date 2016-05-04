@@ -41,6 +41,7 @@ public class Class {
     @JsonProperty("owner_id")
     public Integer ownerId;
 
+
     public static Model.Finder<Integer, Class> find = new Model.Finder<>(Class.class);
 
 }

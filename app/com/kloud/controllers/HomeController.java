@@ -3,6 +3,7 @@ package com.kloud.controllers;
 import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.kloud.models.Class;
+import com.kloud.models.Lesson;
 import com.kloud.models.School;
 import play.db.Database;
 import play.libs.Json;
@@ -16,6 +17,18 @@ public class HomeController extends Controller {
 
     @Inject
     Database db;
+
+    public Result listClassesOfSchool(int schoolId) {
+        ArrayNode jsonArray = Json.newArray();
+        Class.find.where().eq("school_id", schoolId).findList().forEach(x -> jsonArray.add(Json.toJson(x)));
+        return ok(jsonArray);
+    }
+
+    public Result listLessonsOfClass(int classId) {
+        ArrayNode jsonArray = Json.newArray();
+        Lesson.find.where().eq("class_id", classId).findList().forEach(x -> jsonArray.add(Json.toJson(x)));
+        return ok(jsonArray);
+    }
 
     public Result index() {
         return redirect("http://kloudapp.api-docs.io/v1.0");
